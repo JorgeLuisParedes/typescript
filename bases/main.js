@@ -1,52 +1,93 @@
 "use strict";
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
+(() => {
+    class Mutante {
+        constructor(name, realName) {
+            this.name = name;
+            this.realName = realName;
         }
-    return t;
-};
-(() => {
-    const avengers = {
-        nick: 'Samuel L. Jackson',
-        ironman: 'Robert Downey Jr.',
-        vision: 'Paul Bettany',
-        activos: true,
-        poder: 1500.123123
-    };
-    const printAvengers = (_a) => {
-        var { ironman } = _a, resto = __rest(_a, ["ironman"]);
-        console.log(ironman, resto);
-    };
-    const avengersArr = ['Cap. América', true, 150.15];
-    const [capitan, ironman,] = avengersArr;
-})();
-(() => {
-    const ironman = {
-        name: 'Ironman',
-        weapon: 'Armorsuit'
-    };
-    const capitanAmerica = {
-        name: 'Capitán América',
-        weapon: 'Escudo'
-    };
-    const thor = {
-        name: 'Thor',
-        weapon: 'Mjolnir'
-    };
-    const avengers = [ironman, thor, capitanAmerica];
-    for (const avenger of avengers) {
-        console.log(avenger.name, avenger.weapon);
     }
+    class Xmen extends Mutante {
+        salvarMundo() {
+            return 'Mundo a salvo!';
+        }
+    }
+    class Villian extends Mutante {
+        conquistarMundo() {
+            return 'Mundo conquistado';
+        }
+    }
+    const wolverine = new Xmen('Wolverine', 'Logan');
+    const magneto = new Villian('Magneto', 'Magnus');
+    const printName = (character) => {
+        console.log(character.realName);
+    };
 })();
 (() => {
-    const nombre = 'Jorge';
-    const getName = () => {
-        console.log('Viejo getNAme');
-    };
+    class Avenger {
+        static getAveAge() {
+            return this.name;
+        }
+        constructor(name, team, realName) {
+            this.name = name;
+            this.team = team;
+            this.realName = realName;
+        }
+        bio() {
+            return `${this.name} (${this.team})`;
+        }
+    }
+    Avenger.avgAge = 35;
+})();
+(() => {
+    class Avenger {
+        constructor(name, realName) {
+            this.name = name;
+            this.realName = realName;
+        }
+        getFullName() {
+            return `${this.name} ${this.realName}`;
+        }
+    }
+    class Xmen extends Avenger {
+        constructor(name, realName, isMutant) {
+            super(name, realName);
+            this.isMutant = isMutant;
+        }
+        get fullName() {
+            return `${this.name} - ${this.realName}`;
+        }
+        set fullName(name) {
+            if (name.length < 3) {
+                throw new Error('El nombre debe de ser mayor de 3 letras');
+            }
+            this.name = name;
+        }
+        getFullNameDesdeXmen() {
+            console.log(super.getFullName());
+        }
+    }
+    const wolverine = new Xmen('Wolverine', 'Logan', true);
+    wolverine.fullName = 'Jorge Luis';
+})();
+(() => {
+    class Apocalipsis {
+        constructor(name) {
+            this.name = name;
+        }
+        static callApocalipsis() {
+            if (!Apocalipsis.instance) {
+                Apocalipsis.instance = new Apocalipsis('Soy Apocalipsis... el único');
+            }
+            return Apocalipsis.instance;
+        }
+        changeName(newName) {
+            this.name = newName;
+        }
+    }
+    const apocalipsis = Apocalipsis.callApocalipsis();
+    const apocalipsis2 = Apocalipsis.callApocalipsis();
+    const apocalipsis3 = Apocalipsis.callApocalipsis();
+    apocalipsis.changeName('Xavier');
+    console.log(apocalipsis, apocalipsis2, apocalipsis3);
 })();
 //# sourceMappingURL=main.js.map
